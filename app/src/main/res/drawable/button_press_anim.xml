@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Анимация изменения фона кнопки -->
+    <objectAnimator
+        android:propertyName="backgroundColor"
+        android:valueFrom="#FFFFFF"
+        android:valueTo="#FF0000"
+        android:duration="300"
+        android:repeatCount="1"
+        android:repeatMode="reverse" />
 
-</selector>
+    <objectAnimator
+        android:propertyName="textColor"
+        android:valueFrom="#000000"
+        android:valueTo="#FFFFFF"
+        android:duration="300"
+        android:repeatCount="1"
+        android:repeatMode="reverse" />
+</set>
