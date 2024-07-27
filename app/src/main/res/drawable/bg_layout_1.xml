@@ -5,9 +5,4 @@
             <solid android:color="@color/dark_blue"/>
         </shape>
     </item>
-    <item>
-        <bitmap
-            android:src="@drawable/bg_vector"
-            android:gravity="center" />
-    </item>
 </layer-list>

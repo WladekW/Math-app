@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
         android:id="@+id/menu"
         android:layout_width="80dp"
         android:layout_height="60dp"
@@ -63,11 +63,12 @@
         android:fontFamily="@font/aldrich"
         android:gravity="center"
         android:text="Lv. 1"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="276dp"
-        tools:layout_editor_absoluteY="80dp" />
+        app:layout_constraintBottom_toTopOf="@+id/example"
+        app:layout_constraintEnd_toEndOf="@+id/example"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/answer_a"
