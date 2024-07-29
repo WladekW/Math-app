@@ -60,7 +60,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         answer_a.setOnClickListener {
-            if (abcd[0] == 1) {
+            if (abcd[0] == 1 && firstL == false) {
                 level += 1
             }
             nextLevel()
@@ -70,7 +70,7 @@ class QuizActivity : AppCompatActivity() {
             level_text.text = "Lv.$level"
         }
         answer_b.setOnClickListener {
-            if (abcd[0] == 2) {
+            if (abcd[0] == 2 && firstL == false) {
                 level += 1
             }
             nextLevel()
@@ -80,7 +80,7 @@ class QuizActivity : AppCompatActivity() {
             level_text.text = "Lv.$level"
         }
         answer_c.setOnClickListener {
-            if (abcd[0] == 3) {
+            if (abcd[0] == 3 && firstL == false) {
                 level += 1
             }
             nextLevel()
@@ -90,7 +90,7 @@ class QuizActivity : AppCompatActivity() {
             level_text.text = "Lv.$level"
         }
         answer_d.setOnClickListener {
-            if (abcd[0] == 4) {
+            if (abcd[0] == 4 && firstL == false) {
                 level += 1
             }
             nextLevel()
@@ -110,55 +110,47 @@ class QuizActivity : AppCompatActivity() {
             val until: Int = 10
 
             val from_btn = 1
-            val until_btn = 20
-
-            val values_a = List(2) { Random.nextInt(from, until) }
-            val resula_a = values_a[0]
-            val result_b = values_a[1]
-            val values_c = resula_a + result_b
-
-            if (abcd[0] == 1) {
-                answer_a.text = "$values_c"
-                answer_b.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_c.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_d.text = "${Random.nextInt(from_btn, until_btn)}"
-            } else if (abcd[0] == 2) {
-                answer_a.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_b.text = "$values_c"
-                answer_c.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_d.text = "${Random.nextInt(from_btn, until_btn)}"
-            } else if (abcd[0] == 3) {
-                answer_a.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_b.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_c.text = "$values_c"
-                answer_d.text = "${Random.nextInt(from_btn, until_btn)}"
-            } else if (abcd[0] == 4) {
-                answer_a.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_b.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_c.text = "${Random.nextInt(from_btn, until_btn)}"
-                answer_d.text = "$values_c"
-            }
-
-            example_text.text = "$resula_a + $result_b ="
-            level_text.text = "Lv.$level"
-        }
-        if (level in 4..10) {
-            val from: Int = 10
-            val until: Int = 51
-
-            val from_btn = 1
             val until_btn = 10
 
+            val plus_or_minus = List(4) { Random.nextInt(1, 3) }
+
             val values_a = List(2) { Random.nextInt(from, until) }
             val resula_a = values_a[0]
             val result_b = values_a[1]
-            val values_c = resula_a + result_b
+            var values_c = resula_a + result_b
 
-            val answers_4 = List(3) { Random.nextInt(from_btn, until_btn) }
+            val answers_4 = mutableSetOf<Int>()
+            while (answers_4.size < 3) {
+                answers_4.add(Random.nextInt(from_btn, until_btn))
+            }
+            val answers_4_list = answers_4.toList()
+            var answer_1_random = answers_4_list[0] + values_c
+            var answer_2_random = answers_4_list[1] + values_c
+            var answer_3_random = answers_4_list[2] + values_c
 
-            val answer_1_random = answers_4[0] + values_c
-            val answer_2_random = answers_4[1] + values_c
-            val answer_3_random = answers_4[2] + values_c
+            if (plus_or_minus[3] == 1){
+                values_c = resula_a + result_b
+            }else if(plus_or_minus[3] == 2){
+                values_c = resula_a - result_b
+            }
+
+            if (plus_or_minus[0] == 1){
+                answer_1_random = answers_4_list[0] + values_c
+            }else if(plus_or_minus[0] == 2){
+                answer_1_random = answers_4_list[0] - values_c
+            }
+
+            if (plus_or_minus[1] == 1){
+                answer_2_random = answers_4_list[1] + values_c
+            }else if(plus_or_minus[1] == 2){
+                answer_2_random = answers_4_list[1] - values_c
+            }
+
+            if (plus_or_minus[2] == 1){
+                answer_3_random = answers_4_list[2] + values_c
+            }else if(plus_or_minus[2] == 2){
+                answer_3_random = answers_4_list[2] - values_c
+            }
 
             if (abcd[0] == 1) {
                 answer_a.text = "$values_c"
@@ -172,17 +164,331 @@ class QuizActivity : AppCompatActivity() {
                 answer_d.text = "$answer_3_random"
             } else if (abcd[0] == 3) {
                 answer_a.text = "$answer_1_random"
-                answer_c.text = "$answer_2_random"
+                answer_b.text = "$answer_2_random"
                 answer_c.text = "$values_c"
                 answer_d.text = "$answer_3_random"
             } else if (abcd[0] == 4) {
                 answer_a.text = "$answer_1_random"
-                answer_c.text = "$answer_2_random"
-                answer_d.text = "$answer_3_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$answer_3_random"
                 answer_d.text = "$values_c"
             }
 
-            example_text.text = "$resula_a + $result_b ="
+            if (plus_or_minus[3] == 1){
+                example_text.text = "$resula_a + $result_b ="
+            }else if(plus_or_minus[3] == 2){
+                example_text.text = "$resula_a - $result_b ="
+            }
+
+            level_text.text = "Lv.$level"
+        }
+
+        if (level in 4..10) {
+            val from: Int = 10
+            val until: Int = 21
+
+            val from_btn = 1
+            val until_btn = 10
+
+            val plus_or_minus = List(4) { Random.nextInt(1, 3) }
+
+            val values_a = List(2) { Random.nextInt(from, until) }
+            val resula_a = values_a[0]
+            val result_b = values_a[1]
+            var values_c = resula_a + result_b
+
+            val answers_4 = mutableSetOf<Int>()
+            while (answers_4.size < 3) {
+                answers_4.add(Random.nextInt(from_btn, until_btn))
+            }
+            val answers_4_list = answers_4.toList()
+            var answer_1_random = answers_4_list[0] + values_c
+            var answer_2_random = answers_4_list[1] + values_c
+            var answer_3_random = answers_4_list[2] + values_c
+
+            if (plus_or_minus[3] == 1){
+                values_c = resula_a + result_b
+            }else if(plus_or_minus[3] == 2){
+                values_c = resula_a - result_b
+            }
+
+            if (plus_or_minus[0] == 1){
+                answer_1_random = answers_4_list[0] + values_c
+            }else if(plus_or_minus[0] == 2){
+                answer_1_random = answers_4_list[0] - values_c
+            }
+
+            if (plus_or_minus[1] == 1){
+                answer_2_random = answers_4_list[1] + values_c
+            }else if(plus_or_minus[1] == 2){
+                answer_2_random = answers_4_list[1] - values_c
+            }
+
+            if (plus_or_minus[2] == 1){
+                answer_3_random = answers_4_list[2] + values_c
+            }else if(plus_or_minus[2] == 2){
+                answer_3_random = answers_4_list[2] - values_c
+            }
+
+            if (abcd[0] == 1) {
+                answer_a.text = "$values_c"
+                answer_b.text = "$answer_1_random"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 2) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$values_c"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 3) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$values_c"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 4) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$answer_3_random"
+                answer_d.text = "$values_c"
+            }
+
+            if (plus_or_minus[3] == 1){
+                example_text.text = "$resula_a + $result_b ="
+            }else if(plus_or_minus[3] == 2){
+                example_text.text = "$resula_a - $result_b ="
+            }
+
+            level_text.text = "Lv.$level"
+        }
+        if (level in 11..20) {
+            val from: Int = 20
+            val until: Int = 41
+
+            val from_btn = 1
+            val until_btn = 10
+
+            val plus_or_minus = List(4) { Random.nextInt(1, 3) }
+
+            val values_a = List(2) { Random.nextInt(from, until) }
+            val resula_a = values_a[0]
+            val result_b = values_a[1]
+            var values_c = resula_a + result_b
+
+            val answers_4 = mutableSetOf<Int>()
+            while (answers_4.size < 3) {
+                answers_4.add(Random.nextInt(from_btn, until_btn))
+            }
+            val answers_4_list = answers_4.toList()
+            var answer_1_random = answers_4_list[0] + values_c
+            var answer_2_random = answers_4_list[1] + values_c
+            var answer_3_random = answers_4_list[2] + values_c
+
+            if (plus_or_minus[3] == 1){
+                values_c = resula_a + result_b
+            }else if(plus_or_minus[3] == 2){
+                values_c = resula_a - result_b
+            }
+
+            if (plus_or_minus[0] == 1){
+                answer_1_random = answers_4_list[0] + values_c
+            }else if(plus_or_minus[0] == 2){
+                answer_1_random = answers_4_list[0] - values_c
+            }
+
+            if (plus_or_minus[1] == 1){
+                answer_2_random = answers_4_list[1] + values_c
+            }else if(plus_or_minus[1] == 2){
+                answer_2_random = answers_4_list[1] - values_c
+            }
+
+            if (plus_or_minus[2] == 1){
+                answer_3_random = answers_4_list[2] + values_c
+            }else if(plus_or_minus[2] == 2){
+                answer_3_random = answers_4_list[2] - values_c
+            }
+
+            if (abcd[0] == 1) {
+                answer_a.text = "$values_c"
+                answer_b.text = "$answer_1_random"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 2) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$values_c"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 3) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$values_c"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 4) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$answer_3_random"
+                answer_d.text = "$values_c"
+            }
+
+            if (plus_or_minus[3] == 1){
+                example_text.text = "$resula_a + $result_b ="
+            }else if(plus_or_minus[3] == 2){
+                example_text.text = "$resula_a - $result_b ="
+            }
+
+            level_text.text = "Lv.$level"
+        }
+        if (level in 21..40) {
+            val from: Int = 40
+            val until: Int = 81
+
+            val from_btn = 1
+            val until_btn = 30
+
+            val plus_or_minus = List(4) { Random.nextInt(1, 3) }
+
+            val values_a = List(2) { Random.nextInt(from, until) }
+            val resula_a = values_a[0]
+            val result_b = values_a[1]
+            var values_c = resula_a + result_b
+
+            val answers_4 = mutableSetOf<Int>()
+            while (answers_4.size < 3) {
+                answers_4.add(Random.nextInt(from_btn, until_btn))
+            }
+            val answers_4_list = answers_4.toList()
+            var answer_1_random = answers_4_list[0] + values_c
+            var answer_2_random = answers_4_list[1] + values_c
+            var answer_3_random = answers_4_list[2] + values_c
+
+            if (plus_or_minus[3] == 1){
+                values_c = resula_a + result_b
+            }else if(plus_or_minus[3] == 2){
+                values_c = resula_a - result_b
+            }
+
+            if (plus_or_minus[0] == 1){
+                answer_1_random = answers_4_list[0] + values_c
+            }else if(plus_or_minus[0] == 2){
+                answer_1_random = answers_4_list[0] - values_c
+            }
+
+            if (plus_or_minus[1] == 1){
+                answer_2_random = answers_4_list[1] + values_c
+            }else if(plus_or_minus[1] == 2){
+                answer_2_random = answers_4_list[1] - values_c
+            }
+
+            if (plus_or_minus[2] == 1){
+                answer_3_random = answers_4_list[2] + values_c
+            }else if(plus_or_minus[2] == 2){
+                answer_3_random = answers_4_list[2] - values_c
+            }
+
+            if (abcd[0] == 1) {
+                answer_a.text = "$values_c"
+                answer_b.text = "$answer_1_random"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 2) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$values_c"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 3) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$values_c"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 4) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$answer_3_random"
+                answer_d.text = "$values_c"
+            }
+
+            if (plus_or_minus[3] == 1){
+                example_text.text = "$resula_a + $result_b ="
+            }else if(plus_or_minus[3] == 2){
+                example_text.text = "$resula_a - $result_b ="
+            }
+
+            level_text.text = "Lv.$level"
+        }
+        if (level in 41..50) {
+            val from: Int = 40
+            val until: Int = 81
+
+            val from_btn = 1
+            val until_btn = 30
+
+            val plus_or_minus = List(4) { Random.nextInt(1, 3) }
+
+            val values_a = List(2) { Random.nextInt(from, until) }
+            val resula_a = values_a[0]
+            val result_b = values_a[1]
+            var values_c = resula_a + result_b
+
+            val answers_4 = mutableSetOf<Int>()
+            while (answers_4.size < 3) {
+                answers_4.add(Random.nextInt(from_btn, until_btn))
+            }
+            val answers_4_list = answers_4.toList()
+            var answer_1_random = answers_4_list[0] + values_c
+            var answer_2_random = answers_4_list[1] + values_c
+            var answer_3_random = answers_4_list[2] + values_c
+
+            if (plus_or_minus[3] == 1){
+                values_c = resula_a + result_b
+            }else if(plus_or_minus[3] == 2){
+                values_c = resula_a - result_b
+            }
+
+            if (plus_or_minus[0] == 1){
+                answer_1_random = answers_4_list[0] + values_c
+            }else if(plus_or_minus[0] == 2){
+                answer_1_random = answers_4_list[0] - values_c
+            }
+
+            if (plus_or_minus[1] == 1){
+                answer_2_random = answers_4_list[1] + values_c
+            }else if(plus_or_minus[1] == 2){
+                answer_2_random = answers_4_list[1] - values_c
+            }
+
+            if (plus_or_minus[2] == 1){
+                answer_3_random = answers_4_list[2] + values_c
+            }else if(plus_or_minus[2] == 2){
+                answer_3_random = answers_4_list[2] - values_c
+            }
+
+            if (abcd[0] == 1) {
+                answer_a.text = "$values_c"
+                answer_b.text = "$answer_1_random"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 2) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$values_c"
+                answer_c.text = "$answer_2_random"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 3) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$values_c"
+                answer_d.text = "$answer_3_random"
+            } else if (abcd[0] == 4) {
+                answer_a.text = "$answer_1_random"
+                answer_b.text = "$answer_2_random"
+                answer_c.text = "$answer_3_random"
+                answer_d.text = "$values_c"
+            }
+
+            if (plus_or_minus[3] == 1){
+                example_text.text = "$resula_a + $result_b ="
+            }else if(plus_or_minus[3] == 2){
+                example_text.text = "$resula_a - $result_b ="
+            }
+
             level_text.text = "Lv.$level"
         }
     }
