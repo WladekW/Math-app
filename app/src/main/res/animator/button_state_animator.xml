@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:propertyName="backgroundColor"
+                android:valueFrom="@color/blue"
+                android:valueTo="@color/blue"
+                android:duration="3000"
+                android:valueType="intType" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator
+                android:propertyName="backgroundColor"
+                android:valueFrom="@color/dark_blue_opacity"
+                android:valueTo="@color/dark_blue_opacity"
+                android:duration="3000"
+                android:valueType="intType" />
+        </set>
+    </item>
+</selector>

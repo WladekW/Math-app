@@ -16,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         start.setOnClickListener {
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
-            this.overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_left);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-
     }
 }
