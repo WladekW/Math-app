@@ -8,6 +8,8 @@
     <style name="App_Thema" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:navigationBarColor">@color/blue</item>
         <item name="android:colorPrimaryDark">@color/blue</item>
+        <item name="android:windowBackground">@drawable/bg_layout_1</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 
 

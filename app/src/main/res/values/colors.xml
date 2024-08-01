@@ -5,6 +5,8 @@
     <color name="blue">#405C92</color>
     <color name="blue2">#223049</color>
     <color name="dark_blue">#0C1525</color>
+    <color name="dark_blue_opacity">#9A0C1525</color>
+    <color name="dark_blue_opacity2">#D00C1525</color>
     <color name="blue_light">#96B9FF</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
+    android:screenOrientation="portrait"
     tools:context=".QuizActivity">
 
 
@@ -24,17 +24,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/example"
+        app:layout_constraintStart_toStartOf="@+id/example"
+        app:layout_constraintTop_toBottomOf="@+id/example">
+
+        <ImageView
+            android:id="@+id/heart1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            app:srcCompat="@drawable/heart" />
+
+        <ImageView
+            android:id="@+id/heart2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            app:srcCompat="@drawable/heart" />
+
+        <ImageView
+            android:id="@+id/heart3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            app:srcCompat="@drawable/heart" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/menu"
-        android:layout_width="80dp"
+        android:layout_width="50dp"
         android:layout_height="60dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/text_bg"
+        android:background="@drawable/button_bg"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
-        android:text="="
+        android:stateListAnimator="@animator/button_state_animator"
+        android:text="HOME"
         android:textColor="@color/blue_light"
-        android:textSize="30dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toTopOf="@+id/example"
         app:layout_constraintStart_toStartOf="@+id/example"
         tools:ignore="MissingConstraints" />
@@ -44,8 +80,8 @@
         android:id="@+id/countdown"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/text_bg"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
@@ -60,12 +96,12 @@
         android:id="@+id/level"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/text_bg"
         android:fontFamily="@font/aldrich"
-        android:paddingHorizontal="10dp"
         android:gravity="center"
+        android:paddingHorizontal="10dp"
         android:text="Lv.1"
-        android:layout_marginBottom="10dp"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/example"
@@ -80,8 +116,8 @@
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
+        android:stateListAnimator="@animator/button_state_animator"
         android:text="a"
-        android:textAlignment="center"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/answer_b"
@@ -97,8 +133,8 @@
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
+        android:stateListAnimator="@animator/button_state_animator"
         android:text="b"
-        android:textAlignment="center"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/answer_c"
@@ -114,8 +150,8 @@
         android:layout_marginVertical="10dp"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
+        android:stateListAnimator="@animator/button_state_animator"
         android:text="c"
-        android:textAlignment="center"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/answer_d"
@@ -131,8 +167,8 @@
         android:layout_marginBottom="60dp"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
+        android:stateListAnimator="@animator/button_state_animator"
         android:text="d"
-        android:textAlignment="center"
         android:textColor="@color/blue_light"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -140,6 +176,5 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
