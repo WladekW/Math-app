@@ -25,12 +25,30 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var Heart1: ImageView
     private lateinit var Heart2: ImageView
     private lateinit var Heart3: ImageView
-    private lateinit var countDownTimer: CountDownTimer
+//    private lateinit var countDownTimer: CountDownTimer
 
     private var level = 1
     private var hp_count = 3
     private var firstL = true
     private var abcd = List(1) { Random.nextInt(1, 5) }
+
+    private var countDownTimer: CountDownTimer = object : CountDownTimer(6000, 1000) {
+        @SuppressLint("SetTextI18n")
+        override fun onTick(millisUntilFinished: Long) {
+            countdown_text.text = "${millisUntilFinished / 1000}s"
+        }
+
+        @SuppressLint("SetTextI18n")
+        override fun onFinish() {
+            if (!firstL) {
+                hp_count -= 1
+                updateHp()
+                if (hp_count <= 0){
+                    backToMenu()
+                }
+            }
+        }
+    }
 
     @SuppressLint("MissingInflatedId", "SetTextI18n", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,13 +98,7 @@ class QuizActivity : AppCompatActivity() {
             } else if (abcd[0] != 1 && !firstL) {
                 hp_count -= 1
             }
-            nextLevel()
-            updateHp()
-            cDownStart()
-            firstL = false
-            example_text.textSize = 45F
-            example_text.height = 100
-            level_text.text = "Lv.$level"
+            buttonList()
         }
         answer_b.setOnClickListener {
             if (abcd[0] == 2 && !firstL) {
@@ -94,13 +106,7 @@ class QuizActivity : AppCompatActivity() {
             } else if (abcd[0] != 2 && !firstL) {
                 hp_count -= 1
             }
-            nextLevel()
-            updateHp()
-            cDownStart()
-            firstL = false
-            example_text.textSize = 45F
-            example_text.height = 100
-            level_text.text = "Lv.$level"
+            buttonList()
         }
         answer_c.setOnClickListener {
             if (abcd[0] == 3 && !firstL) {
@@ -108,13 +114,7 @@ class QuizActivity : AppCompatActivity() {
             } else if (abcd[0] != 3 && !firstL) {
                 hp_count -= 1
             }
-            nextLevel()
-            updateHp()
-            cDownStart()
-            firstL = false
-            example_text.textSize = 45F
-            example_text.height = 100
-            level_text.text = "Lv.$level"
+            buttonList()
         }
         answer_d.setOnClickListener {
             if (abcd[0] == 4 && !firstL) {
@@ -122,17 +122,29 @@ class QuizActivity : AppCompatActivity() {
             } else if (abcd[0] != 4 && !firstL) {
                 hp_count -= 1
             }
-            nextLevel()
-            updateHp()
-            cDownStart()
-            firstL = false
-            example_text.textSize = 45F
-            example_text.height = 100
-            level_text.text = "Lv.$level"
+            buttonList()
         }
 
     }
-
+    private fun backToMenu(){
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+    }
+    private fun buttonList(){
+        if (hp_count <= 0){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        nextLevel()
+        updateHp()
+        restartTimer()
+        firstL = false
+        example_text.textSize = 45F
+        example_text.height = 100
+        level_text.text = "Lv.$level"
+    }
     private fun cDownStart() {
         countDownTimer = object : CountDownTimer(6000, 1000) {
             @SuppressLint("SetTextI18n")
@@ -145,9 +157,13 @@ class QuizActivity : AppCompatActivity() {
                 if (!firstL) {
                     hp_count -= 1
                     updateHp()
+                    if (hp_count <= 0){
+                        backToMenu()
+                    }
                 }
             }
         }.start()
+
     }
     private fun restartTimer() {
         countDownTimer.cancel()
@@ -165,6 +181,11 @@ class QuizActivity : AppCompatActivity() {
             0 -> {
                 Heart1.visibility = View.INVISIBLE
             }
+        }
+        if (hp_count <= 0){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
     @SuppressLint("SetTextI18n")
